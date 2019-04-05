@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Merry Christmas</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mountains+of+Christmas">
+  <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="app">
+    <v-app>
+      <v-content class="black">
+        <template>
+          <ul id="wire">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+          </ul>
+          <h2>Lose ziehen</h2>
+          <v-layout justify-center>
+            <v-flex xs11 sm6 lg4>
+              <v-form class="white pa-4">
+                <h3 class="headline mb-1">
+                  Wähle deinen Namen aus
+                </h3>
+                <div class="mb-4">
+                  Bitte nehm nur einmal an der Verlosung teil
+                </div>
+                <v-select @change="change" :items="items" v-model="select" label="Dein Name"  required>
+                </v-select>
+                <v-layout>
+                  <v-spacer></v-spacer>
+                  <v-btn dark @click="btnClick" v-if="btn" :disabled="!valid">Dein Los ziehen </v-btn>
+                </v-layout>
+              </v-form>
+              <v-alert class="ma-0" icon="mood" :value="true" v-if="show" color="error">
+                Du hast {{ los }} gezogen.
+              </v-alert>
+              <v-footer class="pa-3">
+                <v-spacer></v-spacer>
+                <div>hgeissler &copy; {{ new Date().getFullYear() }}</div>
+              </v-footer>
+            </v-flex>
+          </v-layout>
+        </template>
+      </v-content>
+    </v-app>
+  </div>
+  
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
