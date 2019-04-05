@@ -1,53 +1,65 @@
 new Vue({ 
   el: '#app',
+
   data() {
     return {
-      valid: true,
-      select: null,
-      items: [
+      selectedName: null,
+      names: [
         "Birgit", "Celina", "Elisa", "Hannes", "Karla", "Lena", "Marius", "Volker"
       ],
-      show: false,
-      btn: false,
-      los: ''
+      possibleDrawers: [],
+      possibleResults: [],
+      drawnNames: [],
+      showResult: false,
+      showSelect: true,
+      lot: '',
+      disableButton: false
     };  
   },
+
   methods: {
-    change: function() {
-      if (this.select != null) {
-        this.btn = true;
-      }
-    },
-
     btnClick: function() {
-      var request = new XMLHttpRequest();
-      var data = [];
-      var selected = this.select;
+      // vergleiche, ob Name schon gezogen wurde
+      for (let i = this.possibleResults.length - 1; i >= 0; i--) {
+        const e1 = this.possibleResults[i];
 
-      data = {
-        names: [
-        "Birgit", "Celina", "Elisa", "Hannes", "Karla", "Lena", "Marius", "Volker"
-        ]
-      };
-      console.log(data);
-      
-      var lottery = data.names;
-      console.log(lottery);
-      
-      for (let index = 0; index < lottery.length; index++) { 
-        const element=lottery[index]; 
-        if (element==selected) {
-          lottery.splice(index,1); 
-        } 
+        for (let j = 0; j < this.drawnNames.length; j++) {
+          const e2 = this.drawnNames[j];
+
+          if (e1 == e2) {
+            this.possibleResults.splice(i, 1);
+          }
+        }
       }
-      var randomNumber=Math.floor(Math.random() * lottery.length) 
-      this.los=selected; 
-      do { 
-        this.los=lottery[randomNumber];
-      } while(this.los==this.select); 
-      this.show=true; 
-      console.log(this.show); 
-      console.log(this.los);
+
+      // entferne diejenigen, die schon gelost haben von der Liste
+      for (let index = this.possibleDrawers.length -1; index >= 0; index--) {
+        if (this.selectedName == this.possibleDrawers[index]) {
+          this.possibleDrawers.splice(index, 1);
+        }
+      }
+
+      // verhindere, dass derjenige der lost, sich selber zieht
+      if (this.possibleResults.length > 1) {
+        do {
+          var randomNumber = Math.floor(Math.random() * this.possibleResults.length); 
+          this.lot = this.possibleResults[randomNumber];
+        } while(this.lot == this.selectedName);
+  
+        this.drawnNames.push(this.lot);
+
+      } else {
+        this.selectedName = false;
+        this.showSelect = false;
+      }
+
+      this.showResult = true; 
+      this.disableButton = true;
     }
+  },
+  
+  created() {
+    this.possibleDrawers = [...this.names];
+    this.possibleResults = [...this.names];
   }
 });

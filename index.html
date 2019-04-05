@@ -24,7 +24,9 @@
             <li></li>
             <li></li>
           </ul>
+
           <h2>Lose ziehen</h2>
+
           <v-layout justify-center>
             <v-flex xs11 sm6 lg4>
               <v-form class="white pa-4">
@@ -34,16 +36,46 @@
                 <div class="mb-4">
                   Bitte nehm nur einmal an der Verlosung teil
                 </div>
-                <v-select @change="change" :items="items" v-model="select" label="Dein Name"  required>
+                <v-select 
+                  :items="possibleDrawers" 
+                  v-model="selectedName" 
+                  label="Dein Name"
+                  v-if="showSelect"
+                  @change="disableButton = false"  
+                >
                 </v-select>
+
                 <v-layout>
                   <v-spacer></v-spacer>
-                  <v-btn dark @click="btnClick" v-if="btn" :disabled="!valid">Dein Los ziehen </v-btn>
+                  <v-btn 
+                    dark @click="btnClick" 
+                    v-if="selectedName"
+                    :disabled=disableButton
+                  >
+                    Dein Los ziehen 
+                  </v-btn>
                 </v-layout>
               </v-form>
-              <v-alert class="ma-0" icon="mood" :value="true" v-if="show" color="error">
-                Du hast {{ los }} gezogen.
+
+              <v-alert
+                type="info"
+                v-if="!showSelect"
+                :value=true
+                class="ma-0"
+              >
+                Es wurden alle Lose gezogen. Viel Spaß !
               </v-alert>
+
+              <v-alert 
+                class="ma-0" 
+                icon="mood" 
+                v-if="showResult" 
+                color="error"
+                :value=true
+              >
+                Du hast {{ lot }} gezogen.
+              </v-alert>
+
               <v-footer class="pa-3">
                 <v-spacer></v-spacer>
                 <div>hgeissler &copy; {{ new Date().getFullYear() }}</div>
