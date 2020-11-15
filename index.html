@@ -1,95 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Merry Christmas</title>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mountains+of+Christmas">
-  <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div id="app">
-    <v-app>
-      <v-content class="black">
-        <template>
-          <ul id="wire">
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-            <li></li>
-          </ul>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Familie Meier</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Mountains+of+Christmas"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      href="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="app">
+      <v-app>
+        <v-content class="black">
+          <template>
+            <ul id="wire">
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+              <li></li>
+            </ul>
 
-          <h2>Lose ziehen</h2>
+            <h2>Lose ziehen</h2>
 
-          <v-layout justify-center>
-            <v-flex xs11 sm6 lg4>
-              <v-form class="white pa-4">
-                <h3 class="headline mb-1">
-                  Wähle deinen Namen aus
-                </h3>
-                <div class="mb-4">
-                  Bitte nehm nur einmal an der Verlosung teil
-                </div>
-                <v-select 
-                  :items="possibleDrawers" 
-                  v-model="selectedName" 
-                  label="Dein Name"
-                  v-if="showSelect"
-                  @change="disableButton = false"  
-                >
-                </v-select>
-
-                <v-layout>
-                  <v-spacer></v-spacer>
-                  <v-btn 
-                    dark @click="btnClick" 
-                    v-if="selectedName"
-                    :disabled=disableButton
+            <v-layout justify-center>
+              <v-flex xs11 sm6 lg4>
+                <v-form class="white pa-4">
+                  <h3 class="headline mb-1">Gib dein Passwort ein:</h3>
+                  <v-select
+                    :items="possibleDrawers"
+                    v-model="selectedName"
+                    label="Dein Name"
+                    v-if="showSelect"
+                    @change="disableButton = false"
                   >
-                    Dein Los ziehen 
-                  </v-btn>
-                </v-layout>
-              </v-form>
+                  </v-select>
 
-              <v-alert
-                type="info"
-                v-if="!showSelect"
-                :value=true
-                class="ma-0"
-              >
-                Es wurden alle Lose gezogen. Viel Spaß !
-              </v-alert>
+                  <v-text-field
+                    :type="'password'"
+                    name="input-10-2"
+                    label="Passwort"
+                    class="input-group--focused"
+                  ></v-text-field>
 
-              <v-alert 
-                class="ma-0" 
-                icon="mood" 
-                v-if="showResult" 
-                color="error"
-                :value=true
-              >
-                Du hast {{ lot }} gezogen.
-              </v-alert>
+                  <v-layout>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                      dark
+                      @click="btnClick"
+                      v-if="selectedName"
+                      :disabled="disableButton"
+                    >
+                      Dein Los ziehen
+                    </v-btn>
+                  </v-layout>
+                </v-form>
 
-              <v-footer class="pa-3">
-                <v-spacer></v-spacer>
-                <div>hgeissler &copy; {{ new Date().getFullYear() }}</div>
-              </v-footer>
-            </v-flex>
-          </v-layout>
-        </template>
-      </v-content>
-    </v-app>
-  </div>
-  
+                <v-alert
+                  type="info"
+                  v-if="!showSelect"
+                  :value="true"
+                  class="ma-0"
+                >
+                  Es wurden alle Lose gezogen. Viel Spaß !
+                </v-alert>
 
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
-  <script src="app.js"></script>
-</body>
+                <v-alert
+                  class="ma-0"
+                  icon="mood"
+                  v-if="showResult"
+                  color="error"
+                  :value="true"
+                >
+                  Du hast {{ lot }} gezogen.
+                </v-alert>
+              </v-flex>
+            </v-layout>
+          </template>
+        </v-content>
+      </v-app>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vuetify/dist/vuetify.js"></script>
+    <script src="app.js"></script>
+  </body>
 </html>
