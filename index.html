@@ -61,10 +61,12 @@
                   v-if="wrongPW"
                   :value="true"
                   class="ma-0"
+                  icon="info"
                 >
                   Falsches Passwort!
                 </v-alert>
                 <v-alert
+                  icon="info"
                   type="warning"
                   v-if="apiError"
                   :value="true"
@@ -80,7 +82,8 @@
                   color="error"
                   :value="true"
                 >
-                  Hallo {{ name }}, du hast {{ lot }} gezogen.
+                  Hallo {{ name }}, du hast
+                  <span class="font-weight-bold">{{ lot }}</span> gezogen.
                 </v-alert>
               </v-flex>
             </v-layout>
