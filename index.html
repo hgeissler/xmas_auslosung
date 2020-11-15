@@ -40,32 +40,17 @@
               <v-flex xs11 sm6 lg4>
                 <v-form class="white pa-4">
                   <h3 class="headline mb-1">Gib dein Passwort ein:</h3>
-                  <v-select
-                    :items="possibleDrawers"
-                    v-model="selectedName"
-                    label="Dein Name"
-                    v-if="showSelect"
-                    @change="disableButton = false"
-                  >
-                  </v-select>
-
                   <v-text-field
                     :type="'password'"
-                    name="input-10-2"
+                    name="input-password"
                     label="Passwort"
                     class="input-group--focused"
+                    @change="disableButton = false"
                   ></v-text-field>
 
                   <v-layout>
                     <v-spacer></v-spacer>
-                    <v-btn
-                      dark
-                      @click="btnClick"
-                      v-if="selectedName"
-                      :disabled="disableButton"
-                    >
-                      Dein Los ziehen
-                    </v-btn>
+                    <v-btn dark @click="btnClick"> Dein Los ziehen </v-btn>
                   </v-layout>
                 </v-form>
 
