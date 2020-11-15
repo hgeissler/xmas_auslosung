@@ -4,70 +4,42 @@ new Vue({
   data() {
     return {
       selectedName: null,
-      names: [
-        'Birgit',
-        'Celina',
-        'Elisa',
-        'Hannes',
-        'Karla',
-        'Lena',
-        'Marius',
-        'Volker',
+      passwords: [
+        '7823',
+        '3498',
+        '2390',
+        '2353',
+        '8934',
+        '4563',
+        '4382',
+        '0940',
       ],
-      possibleDrawers: [],
-      possibleResults: [],
-      drawnNames: [],
       showResult: false,
-      showSelect: true,
       lot: '',
-      disableButton: false,
+      wrongPW: false,
+      userPW: '',
     }
   },
 
   methods: {
     btnClick: function () {
-      // vergleiche, ob Name schon gezogen wurde
-      for (let i = this.possibleResults.length - 1; i >= 0; i--) {
-        const e1 = this.possibleResults[i]
-
-        for (let j = 0; j < this.drawnNames.length; j++) {
-          const e2 = this.drawnNames[j]
-
-          if (e1 == e2) {
-            this.possibleResults.splice(i, 1)
-          }
+      this.showResult = false
+      this.wrongPW = false
+      var result = false
+      this.passwords.forEach((pw) => {
+        if (pw == this.userPW) {
+          result = true
         }
-      }
-
-      // entferne diejenigen, die schon gelost haben von der Liste
-      for (let index = this.possibleDrawers.length - 1; index >= 0; index--) {
-        if (this.selectedName == this.possibleDrawers[index]) {
-          this.possibleDrawers.splice(index, 1)
-        }
-      }
-
-      // verhindere, dass derjenige der lost, sich selber zieht
-      if (this.possibleResults.length > 1) {
-        do {
-          var randomNumber = Math.floor(
-            Math.random() * this.possibleResults.length
-          )
-          this.lot = this.possibleResults[randomNumber]
-        } while (this.lot == this.selectedName)
-
-        this.drawnNames.push(this.lot)
+      })
+      if (result) {
+        this.showResult = true
       } else {
-        this.selectedName = false
-        this.showSelect = false
+        this.wrongPW = true
       }
-
-      this.showResult = true
-      this.disableButton = true
     },
   },
 
   created() {
-    this.possibleDrawers = [...this.names]
-    this.possibleResults = [...this.names]
+    this.userPW = ''
   },
 })

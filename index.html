@@ -45,7 +45,7 @@
                     name="input-password"
                     label="Passwort"
                     class="input-group--focused"
-                    @change="disableButton = false"
+                    v-model="userPW"
                   ></v-text-field>
 
                   <v-layout>
@@ -55,12 +55,12 @@
                 </v-form>
 
                 <v-alert
-                  type="info"
-                  v-if="!showSelect"
+                  type="warning"
+                  v-if="wrongPW"
                   :value="true"
                   class="ma-0"
                 >
-                  Es wurden alle Lose gezogen. Viel Spaß !
+                  Falsches Passwort!
                 </v-alert>
 
                 <v-alert
