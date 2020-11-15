@@ -4,42 +4,58 @@ new Vue({
   data() {
     return {
       selectedName: null,
-      passwords: [
-        '7823',
-        '3498',
-        '2390',
-        '2353',
-        '8934',
-        '4563',
-        '4382',
-        '0940',
+      drawers: [
+        { password: '7823', name: 'Birgit' },
+        { password: '3498', name: 'Celina' },
+        { password: '2390', name: 'Elisa' },
+        { password: '2353', name: 'Hannes' },
+        { password: '8934', name: 'Karla' },
+        { password: '4563', name: 'Lena' },
+        { password: '4382', name: 'Marius' },
+        { password: '0940', name: 'Volker' },
       ],
       showResult: false,
       lot: '',
       wrongPW: false,
       userPW: '',
+      name: '',
+      apiError: false,
     }
   },
 
   methods: {
-    btnClick: function () {
+    btnClick: async function () {
       this.showResult = false
       this.wrongPW = false
+      this.apiError = false
       var result = false
-      this.passwords.forEach((pw) => {
-        if (pw == this.userPW) {
+      this.drawers.forEach((drawer) => {
+        if (drawer.password == this.userPW) {
           result = true
+          this.name = drawer.name
         }
       })
       if (result) {
-        this.showResult = true
+        try {
+          const response = await axios.post(
+            'https://christmas-lots-api.herokuapp.com/api/drawLot',
+            {
+              name: this.name,
+            }
+          )
+          this.lot = response.data.name
+          if (!this.lot) {
+            this.apiError = true
+          } else {
+            this.showResult = true
+          }
+        } catch (e) {
+          this.apiError = true
+          console.log(e)
+        }
       } else {
         this.wrongPW = true
       }
     },
-  },
-
-  created() {
-    this.userPW = ''
   },
 })
