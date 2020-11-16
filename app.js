@@ -20,11 +20,13 @@ new Vue({
       userPW: '',
       name: '',
       apiError: false,
+      loading: false,
     }
   },
 
   methods: {
     btnClick: async function () {
+      this.loading = true
       this.showResult = false
       this.wrongPW = false
       this.apiError = false
@@ -52,9 +54,12 @@ new Vue({
         } catch (e) {
           this.apiError = true
           console.log(e)
+        } finally {
+          this.loading = false
         }
       } else {
         this.wrongPW = true
+        this.loading = false
       }
     },
   },
